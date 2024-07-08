@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Update Todo
+{% endblock title %}
+
+{% block body %}
+<div class="container mt-4">
+  <form action="/update/{{ todo.sno }}" method="POST">
+    <div class="mb-3">
+      <label for="title" class="form-label">Update your Todo Title</label>
+      <input type="text" class="form-control" id="title" name="title" value="{{ todo.title }}" aria-describedby="titleHelp" required>
+      <div id="titleHelp" class="form-text">Enter the updated title for your todo.</div>
+    </div>
+    <div class="mb-3">
+      <label for="desc" class="form-label">Update Todo Description</label>
+      <input type="text" class="form-control" id="desc" name="desc" value="{{ todo.desc }}" aria-describedby="descHelp" required>
+      <div id="descHelp" class="form-text">Enter the updated description for your todo.</div>
+    </div>
+    <button type="submit" class="btn btn-primary">Update Todo</button>
+  </form>
+</div>
+<script>document.addEventListener('DOMContentLoaded', function() {
+  const titleInput = document.getElementById('title');
+  const descInput = document.getElementById('desc');
+
+  const titleMaxLength = 5; 
+  const descMaxLength = 20; 
+
+  function limitInputLength(element, maxLength) {
+    element.addEventListener('input', function() {
+      if (this.value.length > maxLength) {
+        this.value = this.value.slice(0, maxLength);
+      }
+    });
+  }
+
+  if (titleInput) {
+    limitInputLength(titleInput, titleMaxLength);
+  }
+
+  if (descInput) {
+    limitInputLength(descInput, descMaxLength);
+  }
+});
+</script>
+{% endblock body %}
